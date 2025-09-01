@@ -694,6 +694,10 @@ async def unshare_prompt(
 @app.post("/set-password")
 async def set_password(request: SetPasswordRequest, db: Session = Depends(get_db_session)):
     """Set password for a user account"""
+    # Print whole request content to console
+    print(f"[SET PASSWORD REQUEST] Full request: {request}")
+    print(f"[SET PASSWORD REQUEST] Email: {request.email}")  
+    print(f"[SET PASSWORD REQUEST] Password: {request.password}")
     # logging.info(f"[SET PASSWORD] Email: {request.email}")
     email_lower = request.email.lower().strip()
     
