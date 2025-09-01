@@ -11,6 +11,7 @@ from fastapi.security import APIKeyHeader
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 from sqlalchemy import or_, and_, text
+from fastapi.responses import JSONResponse
 
 from database import init_database, get_db_session, Department, User, Prompt, Tag, UserStarredPrompt, prompt_user_shares, prompt_tags, LogEntry
 from migrate_from_excel import migration
@@ -757,7 +758,9 @@ async def login(request: AuthLoginRequest, db: Session = Depends(get_db_session)
             "department_name": user.department.name if user.department else None
         }
     }
-
+@app.get("/health")
+async def health_check():
+    return JSONResponse(content={"status": "ok"}, status_code=200)
 # @app.get("/logs")
 # async def get_logs(
 #     limit: int = 50,
