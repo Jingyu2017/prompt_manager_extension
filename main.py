@@ -13,7 +13,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import or_, and_, text
 
 from database import init_database, get_db_session, Department, User, Prompt, Tag, UserStarredPrompt, prompt_user_shares, prompt_tags, LogEntry
-
+from migrate_from_excel import migration
 # Configure logging with monthly rotation
 # log_dir = os.path.join(os.path.dirname(__file__), 'log')
 # os.makedirs(log_dir, exist_ok=True)
@@ -96,7 +96,7 @@ app.add_middleware(
 
 # Initialize database on startup
 init_database()
-
+migration()
 # --- Pydantic Models (Data Validation) ---
 class TeamResponse(BaseModel):
     id: str
