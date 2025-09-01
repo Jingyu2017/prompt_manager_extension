@@ -345,6 +345,21 @@ async def get_departments(current_user: User = Depends(get_current_user_from_hea
         for dept in departments
     ]
 
+@app.get("/userlist", response_model=List[UserResponse])
+async def get_userlist(db: Session = Depends(get_db_session)):
+    """Get all users list without authentication"""
+    users = db.query(User).all()
+    return [
+        UserResponse(
+            id=user.id,
+            name=user.name,
+            email=user.email,
+            department_id=user.department_id,
+            department_name=user.department.name if user.department else None
+        )
+        for user in users
+    ]
+
 @app.get("/prompts", response_model=List[PromptResponse])
 async def get_prompts(
     scope: str = "personal",

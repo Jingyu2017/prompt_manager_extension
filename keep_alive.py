@@ -3,23 +3,31 @@ import requests
 import time
 
 # API endpoint
-url = "https://prompt-manager-extension.onrender.com/prompts"
+url = "https://prompt-manager-extension.onrender.com/userlist"
 
-# Query parameters
-params = {
-    "scope": "personal",
-    "q": "search_term"
-}
+
 
 # Headers
 headers = {
-    "X-User-ID": "1",
     "Content-Type": "application/json"
 }
 
+# Query parameters
+# params = {
+#     "scope": "personal",
+#     "q": "search_term"
+# }
+
+# # Headers
+# headers = {
+#     "X-User-ID": "1",
+#     "Content-Type": "application/json"
+# }
+
 while True:
     try:
-        response = requests.get(url, headers=headers, params=params, timeout=10)
+        # response = requests.get(url, headers=headers, params=params, timeout=10)
+        response = requests.get(url, headers=headers, timeout=10)
 
         print("\n--- API Call ---")
         print("Status Code:", response.status_code)
